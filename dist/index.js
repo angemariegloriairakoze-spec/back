@@ -15,11 +15,12 @@ import disciplineRoutes from './routes/discipline.js';
 import notificationRoutes from './routes/notifications.js';
 import reportRoutes from './routes/reports.js';
 import dashboardRoutes from './routes/dashboard.js';
+import teacherAssignmentRoutes from './routes/teacherAssignments.js';
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 app.use(cors({
-    origin: true,
+    origin: process.env.FRONTEND_URL || true,
     credentials: true
 }));
 app.use(express.json());
@@ -71,6 +72,7 @@ app.use('/api/discipline', disciplineRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/reports', reportRoutes);
 app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/teacher-assignments', teacherAssignmentRoutes);
 // Error handler
 app.use((err, req, res, next) => {
     console.error('Error:', err);

@@ -16,14 +16,19 @@ import disciplineRoutes from './routes/discipline.js';
 import notificationRoutes from './routes/notifications.js';
 import reportRoutes from './routes/reports.js';
 import dashboardRoutes from './routes/dashboard.js';
+import teacherAssignmentRoutes from './routes/teacherAssignments.js';
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+const allowedOrigins = process.env.FRONTEND_URL
+  ? [process.env.FRONTEND_URL]
+  : ['https://grp-ashy.vercel.app', 'http://localhost:8080', 'http://localhost:3000', 'http://localhost:5173'];
+
 app.use(cors({
-  origin: true,
+  origin: allowedOrigins,
   credentials: true
 }));
 
@@ -81,6 +86,7 @@ app.use('/api/discipline', disciplineRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/reports', reportRoutes);
 app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/teacher-assignments', teacherAssignmentRoutes);
 
 // Error handler
 app.use((err: any, req: express.Request, res: any, next: express.NextFunction) => {
