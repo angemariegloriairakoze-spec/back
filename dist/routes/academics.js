@@ -251,7 +251,12 @@ router.post('/assignments', authenticate, authorize('ADMIN'), async (req, res) =
         });
         const data = schema.parse(req.body);
         const assignment = await prisma.teacherAssignment.create({
-            data: data,
+            data: {
+                teacher_id: data.teacher_id,
+                subject_id: data.subject_id,
+                stream_id: data.stream_id,
+                term_id: data.term_id,
+            },
             include: {
                 teacher: {
                     include: {

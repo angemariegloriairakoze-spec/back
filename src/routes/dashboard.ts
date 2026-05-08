@@ -78,7 +78,7 @@ router.get('/recent', authenticate, async (req, res) => {
       }),
       prisma.disciplineIncident.findMany({
         take: limit,
-        orderBy: { created_at: 'desc' },
+        orderBy: { date: 'desc' },
         include: {
           student: {
             include: {

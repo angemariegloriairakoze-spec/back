@@ -83,9 +83,13 @@ app.use('/api/reports', reportRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 
 // Error handler
-app.use((err: Error, req: express.Request, res: express.Response) => {
+app.use((err: any, req: express.Request, res: any, next: express.NextFunction) => {
   console.error('Error:', err);
-  res.status(500).json({ error: 'Internal server error' });
+  if (res && typeof res.status === 'function') {
+    res.status(500).json({ error: 'Internal server error' });
+  } else {
+    console.error('Invalid response object in error handler');
+  }
 });
 
 app.listen(PORT, () => {
